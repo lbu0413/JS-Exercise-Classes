@@ -102,20 +102,33 @@ class Car {
   fill(gallons){
     this.tank += gallons;
   }
+  // drive(distance){
+  //   this.odometer += distance;
+  //   this.tank = this.tank - (distance / this.milesPerGallon);
+  //   if(this.odometer === this.tank){
+  //     return `I ran out of fuel at ${this.odometer} miles!`;
+  //   }
+  // }
   drive(distance){
-    this.odometer += distance;
-    this.tank = this.tank - (distance / this.milesPerGallon);
-    if(this.odometer === this.tank){
+    if (this.tank > distance / this.milesPerGallon){
+      this.tank -= distance / this.milesPerGallon;
+      this.odometer += distance;
+    }
+    else if(this.tank <= distance / this.milesPerGallon){
+      this.tank = 0;
+      this.odometer -= distance * this.milesPerGallon;
+      
       return `I ran out of fuel at ${this.odometer} miles!`;
     }
+    
   }
 };
 const porsche = new Car({
   model: 911,
   milesPerGallon: 30
 });
-
-console.log(porsche.drive(10));
+porsche.fill(30);
+console.log(porsche.drive(120));
 
 /*
   TASK 3
